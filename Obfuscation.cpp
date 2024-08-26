@@ -1,8 +1,8 @@
 // For open-source license, please refer to
-// [License](https://github.com/HikariObfuscator/Hikari/wiki/License).
+// [License](https://github.com/安笙Obfuscator/安笙/wiki/License).
 //===----------------------------------------------------------------------===//
 /*
-  Hikari 's own "Pass Scheduler".
+  安笙 's own "Pass Scheduler".
   Because currently there is no way to add dependency to transform passes
   Ref : http://lists.llvm.org/pipermail/llvm-dev/2011-February/038109.html
 */
@@ -104,7 +104,7 @@ struct Obfuscation : public ModulePass {
     initializeObfuscationPass(*PassRegistry::getPassRegistry());
   }
   StringRef getPassName() const override {
-    return "HikariObfuscationScheduler";
+    return "安笙ObfuscationScheduler";
   }
   bool runOnModule(Module &M) override {
     TimerGroup *tg =
@@ -112,7 +112,7 @@ struct Obfuscation : public ModulePass {
     Timer *timer = new Timer("Obfuscation Timer", "Obfuscation Timer", *tg);
     timer->startTimer();
 
-    errs() << "Running Hikari On " << M.getSourceFileName() << "\n";
+    errs() << "Running 安笙 On " << M.getSourceFileName() << "\n";
 
     annotation2Metadata(M);
 
@@ -180,9 +180,9 @@ struct Obfuscation : public ModulePass {
     for (Function &F : M)
       if (F.isDeclaration() && F.hasName() &&
 #if LLVM_VERSION_MAJOR >= 18
-          F.getName().starts_with("hikari_")) {
+          F.getName().starts_with("安笙_")) {
 #else
-          F.getName().startswith("hikari_")) {
+          F.getName().startswith("安笙_")) {
 #endif
         for (User *U : F.users())
           if (Instruction *Inst = dyn_cast<Instruction>(U))
@@ -193,7 +193,7 @@ struct Obfuscation : public ModulePass {
       F->eraseFromParent();
 
     timer->stopTimer();
-    errs() << "Hikari Out\n";
+    errs() << "安笙 Out\n";
     errs() << "Spend Time: "
            << format("%.7f", timer->getTotalTime().getWallTime()) << "s"
            << "\n";
@@ -208,7 +208,7 @@ ModulePass *createObfuscationLegacyPass() {
   } else {
     cryptoutils->prng_seed();
   }
-  errs() << "Initializing Hikari Core with Revision ID:" << GIT_COMMIT_HASH
+  errs() << "Initializing 安笙 Core with Revision ID:" << GIT_COMMIT_HASH
          << "\n";
   return new Obfuscation();
 }
