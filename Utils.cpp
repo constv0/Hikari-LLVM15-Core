@@ -1,5 +1,5 @@
 // For open-source license, please refer to
-// [License](https://github.com/HikariObfuscator/Hikari/wiki/License).
+// [License](https://github.com/安笙Obfuscator/安笙/wiki/License).
 //===----------------------------------------------------------------------===//
 #include "llvm/Transforms/Obfuscation/Utils.h"
 #include "llvm/IR/IRBuilder.h"
@@ -82,10 +82,10 @@ bool readFlag(Function *f, std::string attribute) {
     if (CallInst *CI = dyn_cast<CallInst>(Inst)) {
       if (CI->getCalledFunction() != nullptr &&
 #if LLVM_VERSION_MAJOR >= 18
-          CI->getCalledFunction()->getName().starts_with("hikari_" +
+          CI->getCalledFunction()->getName().starts_with("安笙_" +
                                                          attribute)) {
 #else
-          CI->getCalledFunction()->getName().startswith("hikari_" +
+          CI->getCalledFunction()->getName().startswith("安笙_" +
                                                         attribute)) {
 #endif
         CI->eraseFromParent();
@@ -95,10 +95,10 @@ bool readFlag(Function *f, std::string attribute) {
     if (InvokeInst *II = dyn_cast<InvokeInst>(Inst)) {
       if (II->getCalledFunction() != nullptr &&
 #if LLVM_VERSION_MAJOR >= 18
-          II->getCalledFunction()->getName().starts_with("hikari_" +
+          II->getCalledFunction()->getName().starts_with("安笙_" +
                                                          attribute)) {
 #else
-          II->getCalledFunction()->getName().startswith("hikari_" +
+          II->getCalledFunction()->getName().startswith("安笙_" +
                                                         attribute)) {
 #endif
         BasicBlock *normalDest = II->getNormalDest();
@@ -180,9 +180,9 @@ bool readFlagUint32OptVal(Function *f, std::string opt, uint32_t *val) {
     if (CallInst *CI = dyn_cast<CallInst>(Inst)) {
       if (CI->getCalledFunction() != nullptr &&
 #if LLVM_VERSION_MAJOR >= 18
-          CI->getCalledFunction()->getName().starts_with("hikari_" + opt)) {
+          CI->getCalledFunction()->getName().starts_with("安笙_" + opt)) {
 #else
-          CI->getCalledFunction()->getName().startswith("hikari_" + opt)) {
+          CI->getCalledFunction()->getName().startswith("安笙_" + opt)) {
 #endif
         if (ConstantInt *C = dyn_cast<ConstantInt>(CI->getArgOperand(0))) {
           *val = (uint32_t)C->getValue().getZExtValue();
@@ -194,9 +194,9 @@ bool readFlagUint32OptVal(Function *f, std::string opt, uint32_t *val) {
     if (InvokeInst *II = dyn_cast<InvokeInst>(Inst)) {
       if (II->getCalledFunction() != nullptr &&
 #if LLVM_VERSION_MAJOR >= 18
-          II->getCalledFunction()->getName().starts_with("hikari_" + opt)) {
+          II->getCalledFunction()->getName().starts_with("安笙_" + opt)) {
 #else
-          II->getCalledFunction()->getName().startswith("hikari_" + opt)) {
+          II->getCalledFunction()->getName().startswith("安笙_" + opt)) {
 #endif
         if (ConstantInt *C = dyn_cast<ConstantInt>(II->getArgOperand(0))) {
           *val = (uint32_t)C->getValue().getZExtValue();
